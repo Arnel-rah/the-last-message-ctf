@@ -37,61 +37,67 @@ const stages = [
   {
     id: 1,
     title: "Le témoignage impossible",
-    tag: "DOSSIER A — CHRONOLOGIE",
+    tag: "DOSSIER A — ORDRE DES PASSAGES",
     intro:
-      "Le gardien affirme que la porte des archives a été verrouillée à 20 h 05. Après cette heure, personne ne pouvait entrer ni sortir.",
+      "Le registre des passages a été déchiré. Il reste seulement quatre témoignages, chacun décrivant une relation d'ordre.",
     evidence: [
-      "ALINE — « J'ai quitté le bâtiment à 19 h 55. »",
-      "BENOÎT — « J'étais dans le hall à 20 h 02. »",
-      "NORA — « Je suis entrée dans les archives à 20 h 07 pour récupérer mon sac. »",
-      "SAMIR — « J'ai entendu le verrou se fermer à 20 h 05. »",
+      "BENOÎT — « Mon passage a eu lieu juste avant celui de SAMIR. »",
+      "SAMIR — « Je suis passé avant NORA. »",
+      "NORA — « Je suis passée avant ALINE. »",
+      "ALINE — « Je n'étais pas la première. »",
+      "Règle du registre : chaque personne apparaît une seule fois.",
     ],
     question:
-      "Quel témoignage est incompatible avec le verrouillage ? Saisissez le prénom.",
+      "Reconstituez l'ordre complet, puis indiquez le prénom en troisième position.",
     hints: [
-      "Ne cherchez pas un code. Construisez simplement une ligne du temps.",
-      "Comparez l'heure du verrouillage avec l'heure d'entrée annoncée.",
+      "Transformez chaque phrase en relation avant/après.",
+      "Commencez par la relation la plus contrainte, puis vérifiez les quatre places.",
     ],
     answer: "NORA",
     explanation:
-      "Nora affirme être entrée à 20 h 07, alors que la porte était déjà verrouillée à 20 h 05. Son témoignage est impossible selon les règles du dossier.",
+      "Benoît est immédiatement avant Samir, Samir est avant Nora, et Nora est avant Aline. La seule chaîne compatible est BENOÎT-SAMIR-NORA-ALINE.",
   },
   {
     id: 2,
     title: "La lettre du bibliothécaire",
-    tag: "DOSSIER B — MESSAGE",
+    tag: "DOSSIER B — PARCOURS CRYPTÉ",
     intro:
-      "Une note a été retrouvée au dos d'un livre. Le bibliothécaire avait une habitude étrange : il ignorait le premier mot, puis lisait un mot sur deux.",
+      "Une grille a été retrouvée dans la salle de lecture. Les cases vides sont des leurres : il faut suivre exactement les déplacements de la marge.",
     evidence: [
-      "« Le SILENCE couvre CLE les SOUS vieux LE tiroirs TAPIS oubliés ROUGE depuis longtemps. »",
-      "Note en marge : « Commence au deuxième mot. Garde ensuite un mot, saute le suivant. »",
+      "Grille (ligne 1 à 5) :",
+      "T X A X X",
+      "X X X X X",
+      "X X P I X",
+      "X X X X X",
+      "X X X S X",
+      "Marge : « Commence en haut à gauche. Garde la lettre de départ, puis avance de 2 à droite, 2 en bas, 1 à droite, 2 en bas. »",
     ],
-    question: "Quel mot important apparaît à la fin de cette lecture ?",
+    question: "Quel mot est parcouru ? Écrivez-le en majuscules.",
     hints: [
-      "Numérotez les mots dans l'ordre, sans compter la ponctuation.",
-      "Les mots retenus forment l'expression « SOUS LE TAPIS ROUGE ». Quel objet sert de cachette ?",
+      "La première case compte, même avant le premier déplacement.",
+      "Un déplacement de 2 franchit une case intermédiaire mais arrive deux colonnes ou lignes plus loin.",
     ],
     answer: "TAPIS",
     explanation:
-      "En prenant un mot sur deux à partir du deuxième, on obtient SILENCE, CLE, SOUS, LE, TAPIS, ROUGE. L'expression de lieu est « SOUS LE TAPIS ROUGE » : l'objet qui sert de cachette est le TAPIS.",
+      "En partant de T, les arrivées donnent A, P, I, puis S. Le parcours forme TAPIS.",
   },
   {
     id: 3,
     title: "Le registre des objets",
-    tag: "DOSSIER C — ARCHIVES",
+    tag: "DOSSIER C — FILTRE NUMÉRIQUE",
     intro:
-      "Le registre contient plusieurs numéros. Une annotation précise : « Le dossier recherché est le seul numéro strictement supérieur à 16 et strictement inférieur à 18. »",
+      "Les numéros du registre sont mélangés à des dossiers leurres. Trois opérations successives permettent d'isoler le bon numéro.",
     evidence: [
-      "Dossier 12 — inventaire du sous-sol",
-      "Dossier 16 — factures anciennes",
-      "Dossier 17 — correspondance personnelle",
-      "Dossier 18 — plans du bâtiment",
-      "Dossier 21 — rapports techniques",
+      "Numéros présents : 09, 12, 14, 16, 17, 18, 21, 24.",
+      "Filtre 1 : conserve les nombres impairs.",
+      "Filtre 2 : parmi eux, conserve ceux strictement supérieurs à 10 et strictement inférieurs à 22.",
+      "Filtre 3 : élimine le nombre dont la somme des chiffres vaut 3.",
     ],
-    question: "Quel est le numéro du dossier recherché ?",
+    question:
+      "Quel numéro reste après les trois filtres ? Écrivez uniquement le nombre.",
     hints: [
-      "« Strictement supérieur » signifie plus grand, sans inclure 16.",
-      "Il n'existe qu'un entier entre 16 et 18.",
+      "Appliquez les filtres dans l'ordre, sans réutiliser les nombres éliminés.",
+      "La somme des chiffres de 21 vaut 3.",
     ],
     answer: "17",
     explanation: "Le seul entier strictement compris entre 16 et 18 est 17.",
@@ -99,21 +105,21 @@ const stages = [
   {
     id: 4,
     title: "Les cinq lignes",
-    tag: "DOSSIER D — DERNIÈRE NOTE",
+    tag: "DOSSIER D — ORDRE DE LECTURE",
     intro:
-      "Une feuille froissée a été retrouvée dans la corbeille. Le message est composé de cinq lignes. Une consigne accompagne le papier : « Le début de chaque ligne compte davantage que sa fin. »",
+      "Cinq lignes ont été mélangées. La date inscrite au début de chaque ligne indique l'ordre réel de lecture.",
     evidence: [
-      "Caché dans le silence, le dossier attend.",
-      "Au milieu des ombres, personne ne regarde.",
-      "Chaque minute éloigne les curieux.",
-      "Hier n'explique pas toujours aujourd'hui.",
-      "Enfin, la vérité reste à découvrir.",
+      "04/04 — Hier n'explique pas toujours aujourd'hui.",
+      "01/04 — Caché dans le silence, le dossier attend.",
+      "05/04 — Enfin, la vérité reste à découvrir.",
+      "03/04 — Chaque minute éloigne les curieux.",
+      "02/04 — Au milieu des ombres, personne ne regarde.",
     ],
     question:
-      "Quel verbe est caché dans cette note ? Écrivez-le en majuscules.",
+      "Remettez les lignes dans l'ordre des dates, puis lisez leur première lettre. Quel verbe obtenez-vous ?",
     hints: [
-      "Observez le tout début de chaque ligne.",
-      "Lisez la première lettre de chaque ligne, de haut en bas.",
+      "La position d'affichage n'est pas l'ordre de lecture.",
+      "Après le tri, utilisez seulement la première lettre de chaque phrase.",
     ],
     answer: "CACHE",
     explanation: "Les premières lettres forment C-A-C-H-E : CACHE.",
@@ -201,12 +207,10 @@ app.post("/api/answer", (req, res) => {
   const index = solved.length;
   if (index >= stages.length) return res.json({ ok: true, complete: true });
   if (!allowAttempt(req)) {
-    return res
-      .status(429)
-      .json({
-        ok: false,
-        message: "Trop de tentatives. Attendez une minute avant de continuer.",
-      });
+    return res.status(429).json({
+      ok: false,
+      message: "Trop de tentatives. Attendez une minute avant de continuer.",
+    });
   }
   const stage = stages[index];
   if (normalize(req.body.answer) === normalize(stage.answer)) {
@@ -216,12 +220,10 @@ app.post("/api/answer", (req, res) => {
       message: "Bonne réponse. Le dossier suivant est déverrouillé.",
     });
   }
-  return res
-    .status(400)
-    .json({
-      ok: false,
-      message: "Ce n'est pas la bonne réponse. Reprenez les preuves calmement.",
-    });
+  return res.status(400).json({
+    ok: false,
+    message: "Ce n'est pas la bonne réponse. Reprenez les preuves calmement.",
+  });
 });
 
 app.post("/api/reset", (req, res) => {
