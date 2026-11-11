@@ -1,0 +1,5 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Corrigé organisateur</title><link rel="stylesheet" href="/style.css"></head><body><main class="admin"><p class="eyebrow">ZONE PRIVÉE • NE PAS PARTAGER</p><h1>Corrigé secret</h1><p class="muted">Les réponses et explications ci-dessous ne sont accessibles qu'après authentification.</p><div id="solutions">Chargement…</div><form method="post" action="/organizer/logout"><button class="btn" type="submit">SE DÉCONNECTER</button></form><p><a href="/">Voir le site joueur</a></p></main><script>
+fetch("/api/organizer/solutions").then(r=>{if(!r.ok)throw Error();return r.json()}).then(items=>{
+ document.getElementById("solutions").innerHTML=items.map(s=>`<section class="solution"><div class="tag">ÉPREUVE ${s.id}</div><h2>${s.title}</h2><p>Réponse : <code>${s.answer}</code></p><p>${s.explanation}</p><p><strong>Indices :</strong><br>${s.hints.map((h,i)=>`${i+1}. ${h}`).join("<br>")}</p></section>`).join("");
+}).catch(()=>document.getElementById("solutions").textContent="Session expirée. Rechargez /organizer.");
+</script></body></html>
