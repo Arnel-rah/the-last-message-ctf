@@ -182,6 +182,7 @@ function allowAttempt(req) {
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/api/state", (req, res) => {
+  res.set("Cache-Control", "no-store");
   const solved = progress(req);
   const current = currentStage(req);
   res.json({

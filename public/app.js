@@ -12,7 +12,7 @@ function escapeHtml(s) {
   );
 }
 async function load() {
-  const response = await fetch("/api/state");
+  const response = await fetch("/api/state", { cache: "no-store" });
   const state = await response.json();
   progressText.textContent = `DOSSIER ${String(Math.min(state.solved.length + 1, 5)).padStart(2, "0")} / 05`;
   if (state.complete) {
@@ -54,7 +54,10 @@ async function submitAnswer(event) {
     feedback.textContent =
       result.message || (result.ok ? "Correct." : "Réponse incorrecte.");
     feedback.className = "feedback " + (result.ok ? "good" : "bad");
-    if (result.ok) setTimeout(load, 900);
+    if (result.ok) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      await load();
+    }
   } catch {
     feedback.textContent = "Impossible de contacter le serveur. Réessayez.";
     feedback.className = "feedback bad";
