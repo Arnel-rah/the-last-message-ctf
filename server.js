@@ -4,6 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
 const ORGANIZER_PASSWORD =
   process.env.ORGANIZER_PASSWORD || "change-this-password";
